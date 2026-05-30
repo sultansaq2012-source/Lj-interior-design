@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LJ Interior Design — Transforming Spaces Into Timeless Experiences</title>
-  <meta name="description" content="LJ Interior Design by Lubna — luxury residential and commercial interior design.">
+  <title>LJ Design — Transforming Spaces Into Timeless Experiences</title>
+  <meta name="description" content="LJ Design by Lubna — luxury interior design, fit-out, and project management in Saudi Arabia.">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,40 +16,53 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#home" class="nav-logo">
-        <span class="logo-lj">LJ</span>
-        <span class="logo-text">Interior Design</span>
+        <!-- Recreated LJ logo SVG -->
+        <svg class="logo-svg" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- L in terracotta/orange -->
+          <rect x="4" y="6" width="11" height="46" fill="#C4562A"/>
+          <rect x="4" y="41" width="28" height="11" fill="#C4562A"/>
+          <!-- J in steel blue, overlapping -->
+          <rect x="32" y="6" width="11" height="44" fill="#7B9BB5"/>
+          <path d="M 43 50 Q 43 64 30 64 Q 18 64 18 55" stroke="#7B9BB5" stroke-width="11" fill="none" stroke-linecap="round"/>
+          <!-- Design script -->
+          <text x="47" y="68" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#c9a84c" letter-spacing="1">Design</text>
+        </svg>
+        <span class="logo-wordmark">Interior Design</span>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#home"         class="nav-link">Home</a></li>
+        <li><a href="#about"        class="nav-link">About</a></li>
+        <li><a href="#services"     class="nav-link">Services</a></li>
+        <li><a href="#portfolio"    class="nav-link">Portfolio</a></li>
         <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-        <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="#contact"      class="nav-link nav-cta">Contact</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION ===== -->
+  <!-- ===== HERO ===== -->
   <section class="hero" id="home">
-    <div class="hero-bg" id="heroBg"></div>
+    <canvas id="heroCanvas"></canvas>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-fade">Welcome to</p>
-      <h1 class="hero-title reveal-up">
-        <span class="hero-lj">LJ</span>
-        <span class="hero-name">Interior Design</span>
-      </h1>
-      <div class="hero-divider reveal-fade"></div>
-      <p class="hero-tagline reveal-up">Transforming Spaces Into Timeless Experiences</p>
-      <div class="hero-actions reveal-fade">
+      <p class="hero-eyebrow">Welcome to</p>
+      <div class="hero-logo-big">
+        <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6"  y="10" width="18" height="80" fill="#C4562A" opacity="0.95"/>
+          <rect x="6"  y="72" width="48" height="18" fill="#C4562A" opacity="0.95"/>
+          <rect x="58" y="10" width="18" height="76" fill="#7B9BB5" opacity="0.95"/>
+          <path d="M 76 86 Q 76 112 54 112 Q 33 112 33 96" stroke="#7B9BB5" stroke-width="18" fill="none" stroke-linecap="round"/>
+          <text x="88" y="124" font-family="Georgia,serif" font-size="22" font-style="italic" fill="#c9a84c" letter-spacing="2">Design</text>
+        </svg>
+      </div>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">Transforming Spaces Into Timeless Experiences</p>
+      <div class="hero-actions">
         <a href="#portfolio" class="btn btn-gold">View Our Work</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        <a href="#contact"   class="btn btn-outline">Get In Touch</a>
       </div>
     </div>
     <a href="#about" class="hero-scroll">
@@ -58,38 +71,40 @@
     </a>
   </section>
 
-  <!-- ===== STATS BAR ===== -->
+  <!-- ===== STATS ===== -->
   <section class="stats-bar">
     <div class="stats-container">
       <div class="stat-item reveal-up">
-        <span class="stat-number" data-target="150">0</span><span class="stat-plus">+</span>
+        <span class="stat-number" data-target="120">0</span><span class="stat-plus">+</span>
         <p class="stat-label">Projects Completed</p>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item reveal-up" style="--delay: 0.1s">
-        <span class="stat-number" data-target="12">0</span><span class="stat-plus">+</span>
+      <div class="stat-item reveal-up" style="--delay:.1s">
+        <span class="stat-number" data-target="10">0</span><span class="stat-plus">+</span>
         <p class="stat-label">Years of Excellence</p>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item reveal-up" style="--delay: 0.2s">
+      <div class="stat-item reveal-up" style="--delay:.2s">
         <span class="stat-number" data-target="98">0</span><span class="stat-plus">%</span>
         <p class="stat-label">Client Satisfaction</p>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item reveal-up" style="--delay: 0.3s">
-        <span class="stat-number" data-target="25">0</span><span class="stat-plus">+</span>
+      <div class="stat-item reveal-up" style="--delay:.3s">
+        <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
         <p class="stat-label">Design Awards</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== ABOUT SECTION ===== -->
+  <!-- ===== ABOUT ===== -->
   <section class="about section" id="about">
     <div class="container">
       <div class="about-grid">
         <div class="about-image-wrap reveal-left">
           <div class="about-img-frame">
-            <div class="about-img about-img-gradient"></div>
+            <!-- Place Lubna's photo as images/lubna.jpg -->
+            <img src="images/lubna.jpg" alt="Lubna — Lead Designer" class="about-img" onerror="this.style.display='none';this.parentElement.classList.add('about-img-fallback')" loading="lazy"/>
+            <div class="about-img-gradient about-img-placeholder"></div>
           </div>
           <div class="about-accent-box">
             <span class="accent-title">Lead Designer</span>
@@ -101,99 +116,137 @@
           <h2 class="section-title">Meet <em>Lubna</em></h2>
           <div class="gold-rule"></div>
           <p class="about-bio">
-            Lubna is a passionate interior designer dedicated to creating sophisticated and functional spaces that reflect each client's unique vision and lifestyle.
+            Lubna is the founder and lead designer of LJ Design — a home decor and interior design studio based in Saudi Arabia. Her philosophy is simple: <em>we design between 4 walls and beyond.</em>
           </p>
           <p class="about-bio">
-            With over a decade of experience transforming residential and commercial interiors, Lubna brings an extraordinary eye for detail, a mastery of proportion and light, and a deep understanding of how people truly live. Every project is approached as a personal collaboration — a journey to discover the essence of a space and elevate it into something truly remarkable.
+            From the first concept sketch to the final finishing touch, Lubna oversees every detail — design, execution, furniture &amp; fixtures, fit-out, and construction. Every project is a personal collaboration built around the client's vision, lifestyle, and story.
           </p>
           <ul class="about-highlights">
-            <li><span class="highlight-dot"></span>Certified Interior Design Professional</li>
-            <li><span class="highlight-dot"></span>Specializing in Luxury Residential &amp; Commercial</li>
-            <li><span class="highlight-dot"></span>Award-Winning Portfolio</li>
-            <li><span class="highlight-dot"></span>Tailored Design for Every Client</li>
+            <li><span class="highlight-dot"></span>Design, Execution &amp; FF&amp;E</li>
+            <li><span class="highlight-dot"></span>Fit-Out &amp; Construction</li>
+            <li><span class="highlight-dot"></span>Project Management</li>
+            <li><span class="highlight-dot"></span>Home Styling</li>
           </ul>
-          <a href="#contact" class="btn btn-gold">Work With Lubna</a>
+          <a href="tel:+966505538629" class="btn btn-gold">
+            <svg style="width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" stroke="currentColor" stroke-width="1.5"/></svg>
+            +966 50 553 8629
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== SERVICES SECTION ===== -->
+  <!-- ===== SERVICES (3D flip cards) ===== -->
   <section class="services section" id="services">
     <div class="container">
       <div class="section-header reveal-up">
         <p class="section-eyebrow">What We Offer</p>
         <h2 class="section-title">Our <em>Services</em></h2>
         <div class="gold-rule centered"></div>
-        <p class="section-subtitle">Every service is crafted to bring your vision to life with precision, elegance, and purpose.</p>
+        <p class="section-subtitle">Every service is crafted to bring your vision to life with precision, artistry, and purpose.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card reveal-up" style="--delay: 0s">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 38V18L24 8L42 18V38H30V28H18V38H6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            </svg>
+
+        <div class="service-flip reveal-up" style="--delay:0s">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="service-icon">
+                <svg viewBox="0 0 48 48" fill="none"><path d="M6 38V18L24 8L42 18V38H30V28H18V38H6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 class="service-title">Design, Execution &amp; FF&amp;E</h3>
+              <span class="flip-hint">hover to explore</span>
+            </div>
+            <div class="flip-back">
+              <h3 class="service-title">Design, Execution &amp; FF&amp;E</h3>
+              <p class="service-desc">We design between 4 walls and beyond — from concept to reality, delivering fully furnished and fitted spaces with meticulous attention to every finish, fixture, and furnishing.</p>
+            </div>
           </div>
-          <h3 class="service-title">Residential Interior Design</h3>
-          <p class="service-desc">Transform your home into a sanctuary of elegance. From concept to completion, we design living spaces that balance beauty with everyday comfort.</p>
-          <span class="service-arrow">→</span>
         </div>
-        <div class="service-card reveal-up" style="--delay: 0.1s">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="10" width="40" height="28" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M4 18H44" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M16 10V18" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
+
+        <div class="service-flip reveal-up" style="--delay:.1s">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="service-icon">
+                <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="8" width="40" height="32" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 16h40M16 8v8" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <h3 class="service-title">Fit-Out &amp; Construction</h3>
+              <span class="flip-hint">hover to explore</span>
+            </div>
+            <div class="flip-back">
+              <h3 class="service-title">Fit-Out &amp; Construction</h3>
+              <p class="service-desc">Full fit-out and construction services tailored to residential and commercial projects — from raw shell to polished, liveable perfection. Quality craftsmanship at every level.</p>
+            </div>
           </div>
-          <h3 class="service-title">Commercial Interior Design</h3>
-          <p class="service-desc">Craft compelling commercial environments that inspire productivity and leave lasting impressions on clients and employees alike.</p>
-          <span class="service-arrow">→</span>
         </div>
-        <div class="service-card reveal-up" style="--delay: 0.2s">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="6" y="6" width="36" height="36" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M6 22H42M22 6V42" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
+
+        <div class="service-flip reveal-up" style="--delay:.2s">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="service-icon">
+                <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" stroke="currentColor" stroke-width="1.5"/><path d="M6 22h36M22 6v36" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <h3 class="service-title">Project Management</h3>
+              <span class="flip-hint">hover to explore</span>
+            </div>
+            <div class="flip-back">
+              <h3 class="service-title">Project Management</h3>
+              <p class="service-desc">End-to-end project oversight ensuring timelines are met, budgets respected, and standards upheld. We coordinate every contractor, supplier, and detail so you don't have to.</p>
+            </div>
           </div>
-          <h3 class="service-title">Space Planning</h3>
-          <p class="service-desc">Optimize every square foot with strategic spatial layouts that enhance flow, functionality, and the overall living or working experience.</p>
-          <span class="service-arrow">→</span>
         </div>
-        <div class="service-card reveal-up" style="--delay: 0.3s">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 36V20C8 18 10 16 14 16H34C38 16 40 18 40 20V36" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M4 36H44" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="18" y="24" width="12" height="12" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
+
+        <div class="service-flip reveal-up" style="--delay:.3s">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="service-icon">
+                <svg viewBox="0 0 48 48" fill="none"><path d="M8 36V20c0-2 2-4 6-4h20c4 0 6 2 6 4v16" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 36h40" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="24" width="12" height="12" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <h3 class="service-title">Home Styling</h3>
+              <span class="flip-hint">hover to explore</span>
+            </div>
+            <div class="flip-back">
+              <h3 class="service-title">Home Styling</h3>
+              <p class="service-desc">Transform your existing space with expert home styling — curated accessories, art placement, soft furnishings, and the finishing layers that make a house feel like a home.</p>
+            </div>
           </div>
-          <h3 class="service-title">Furniture Selection</h3>
-          <p class="service-desc">Curate bespoke furniture collections that harmonize aesthetics and function, sourced from the world's finest artisans and designers.</p>
-          <span class="service-arrow">→</span>
         </div>
-        <div class="service-card reveal-up" style="--delay: 0.4s">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 38L14 30L34 10L38 14L18 34L10 38Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M30 14L34 10L38 14L34 18" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            </svg>
+
+        <div class="service-flip reveal-up" style="--delay:.4s">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="service-icon">
+                <svg viewBox="0 0 48 48" fill="none"><path d="M10 38L14 30L34 10L38 14L18 34L10 38Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M30 14L34 10L38 14L34 18" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 class="service-title">Residential Design</h3>
+              <span class="flip-hint">hover to explore</span>
+            </div>
+            <div class="flip-back">
+              <h3 class="service-title">Residential Design</h3>
+              <p class="service-desc">Bespoke residential interiors tailored to your lifestyle. From villas to apartments, we craft homes that are beautiful, functional, and deeply personal.</p>
+            </div>
           </div>
-          <h3 class="service-title">Renovation Consultation</h3>
-          <p class="service-desc">Expert guidance through every phase of renovation — from planning and materials selection to execution oversight and quality control.</p>
-          <span class="service-arrow">→</span>
         </div>
-        <div class="service-card service-card--cta reveal-up" style="--delay: 0.5s">
-          <p class="cta-card-label">Ready to begin?</p>
-          <h3 class="cta-card-title">Let's Create Something Extraordinary</h3>
-          <a href="#contact" class="btn btn-gold">Start Your Project</a>
+
+        <div class="service-flip service-flip--cta reveal-up" style="--delay:.5s">
+          <div class="flip-inner">
+            <div class="flip-front flip-front--cta">
+              <p class="cta-card-label">Ready to begin?</p>
+              <h3 class="cta-card-title">Let's Create Something Extraordinary</h3>
+              <a href="#contact" class="btn btn-gold">Start Your Project</a>
+            </div>
+            <div class="flip-back flip-back--cta">
+              <p class="cta-card-label">Get in touch</p>
+              <p class="service-desc">Call us at <strong>+966 50 553 8629</strong> or send a message and let's begin the journey to your dream space.</p>
+              <a href="#contact" class="btn btn-gold">Contact Us</a>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ===== PORTFOLIO SECTION ===== -->
+  <!-- ===== PORTFOLIO ===== -->
   <section class="portfolio section" id="portfolio">
     <div class="container">
       <div class="section-header reveal-up">
@@ -210,73 +263,85 @@
       </div>
       <div class="portfolio-grid">
 
-        <div class="portfolio-card reveal-up" style="--delay: 0s" data-category="residential luxury">
+        <!-- Card 1: images/project1.jpg -->
+        <div class="portfolio-card tilt-card reveal-up" style="--delay:0s" data-category="luxury residential">
           <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-1"></div>
-            <div class="portfolio-overlay">
-              <span class="overlay-category">Residential</span>
-              <h3 class="overlay-title">The Ivory Residence</h3>
-              <p class="overlay-desc">A serene urban sanctuary blending warm textures with clean contemporary lines.</p>
-              <span class="overlay-link">View Project →</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="portfolio-card portfolio-card--wide reveal-up" style="--delay: 0.1s" data-category="luxury commercial">
-          <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-2"></div>
+            <img src="images/project1.jpg" alt="Artisan Vignette" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-1 p-img-fallback"></div>
             <div class="portfolio-overlay">
               <span class="overlay-category">Luxury</span>
-              <h3 class="overlay-title">Opulent Penthouse Suite</h3>
-              <p class="overlay-desc">Floor-to-ceiling luxury in a sky-high residence defined by bespoke craftsmanship.</p>
+              <h3 class="overlay-title">Artisan Vignette</h3>
+              <p class="overlay-desc">A curated table composition with glass bird chandelier, bespoke vases, and linen drapes — understated luxury in every detail.</p>
               <span class="overlay-link">View Project →</span>
             </div>
           </div>
         </div>
 
-        <div class="portfolio-card reveal-up" style="--delay: 0.2s" data-category="residential">
+        <!-- Card 2 (wide): images/project2.jpg -->
+        <div class="portfolio-card portfolio-card--wide tilt-card reveal-up" style="--delay:.1s" data-category="commercial luxury">
           <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-3"></div>
-            <div class="portfolio-overlay">
-              <span class="overlay-category">Residential</span>
-              <h3 class="overlay-title">The Golden Bedroom</h3>
-              <p class="overlay-desc">Soft luxury with a gold and ivory palette crafted for restorative elegance.</p>
-              <span class="overlay-link">View Project →</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="portfolio-card reveal-up" style="--delay: 0.3s" data-category="commercial">
-          <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-4"></div>
+            <img src="images/project2.jpg" alt="Executive Lounge" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-2 p-img-fallback"></div>
             <div class="portfolio-overlay">
               <span class="overlay-category">Commercial</span>
-              <h3 class="overlay-title">Executive Office Tower</h3>
-              <p class="overlay-desc">A commanding commercial interior that projects authority and refined taste.</p>
+              <h3 class="overlay-title">Executive Lounge</h3>
+              <p class="overlay-desc">Floor-to-ceiling glazing, curved cream sofas, and architectural ceilings — a commanding workspace that inspires excellence.</p>
               <span class="overlay-link">View Project →</span>
             </div>
           </div>
         </div>
 
-        <div class="portfolio-card portfolio-card--tall reveal-up" style="--delay: 0.4s" data-category="luxury residential">
+        <!-- Card 3: images/project3.jpg -->
+        <div class="portfolio-card tilt-card reveal-up" style="--delay:.2s" data-category="luxury residential">
           <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-5"></div>
+            <img src="images/project3.jpg" alt="The Mirror Room" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-3 p-img-fallback"></div>
             <div class="portfolio-overlay">
               <span class="overlay-category">Luxury</span>
-              <h3 class="overlay-title">Marble Spa Retreat</h3>
-              <p class="overlay-desc">A private wellness haven wrapped in Calacatta marble and ambient gold light.</p>
+              <h3 class="overlay-title">The Mirror Room</h3>
+              <p class="overlay-desc">Antique mirror panels, rich leather Chesterfield sofa, and a gallery wall — dark glamour layered with timeless character.</p>
               <span class="overlay-link">View Project →</span>
             </div>
           </div>
         </div>
 
-        <div class="portfolio-card reveal-up" style="--delay: 0.5s" data-category="commercial">
+        <!-- Card 4: images/project4.jpg -->
+        <div class="portfolio-card tilt-card reveal-up" style="--delay:.3s" data-category="residential luxury">
           <div class="portfolio-img-wrap">
-            <div class="portfolio-img-gradient pg-6"></div>
+            <img src="images/project4.jpg" alt="Gallery Living" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-4 p-img-fallback"></div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Residential</span>
+              <h3 class="overlay-title">Gallery Living</h3>
+              <p class="overlay-desc">A moody living salon where antique gold frames, dark floral wallpaper, and amber lamplight create an atmosphere of cultured drama.</p>
+              <span class="overlay-link">View Project →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 (tall): images/project5.jpg -->
+        <div class="portfolio-card portfolio-card--tall tilt-card reveal-up" style="--delay:.4s" data-category="residential">
+          <div class="portfolio-img-wrap">
+            <img src="images/project5.jpg" alt="Warm Sanctuary" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-5 p-img-fallback"></div>
+            <div class="portfolio-overlay">
+              <span class="overlay-category">Residential</span>
+              <h3 class="overlay-title">Warm Sanctuary</h3>
+              <p class="overlay-desc">Earthy tones, sculptural lighting, and layered textures that transform a home into a deeply personal retreat.</p>
+              <span class="overlay-link">View Project →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: images/project6.jpg -->
+        <div class="portfolio-card tilt-card reveal-up" style="--delay:.5s" data-category="commercial">
+          <div class="portfolio-img-wrap">
+            <img src="images/project6.jpg" alt="Corporate Suite" class="p-img" onerror="this.style.display='none'" loading="lazy"/>
+            <div class="portfolio-img-gradient pg-6 p-img-fallback"></div>
             <div class="portfolio-overlay">
               <span class="overlay-category">Commercial</span>
-              <h3 class="overlay-title">The Crimson Dining Club</h3>
-              <p class="overlay-desc">A fine dining atmosphere that envelops guests in warmth, drama, and sophistication.</p>
+              <h3 class="overlay-title">Corporate Suite</h3>
+              <p class="overlay-desc">A refined commercial interior that balances productivity with prestige, crafted to reflect the brand's authority and elegance.</p>
               <span class="overlay-link">View Project →</span>
             </div>
           </div>
@@ -286,7 +351,7 @@
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS SECTION ===== -->
+  <!-- ===== TESTIMONIALS ===== -->
   <section class="testimonials section" id="testimonials">
     <div class="testimonials-bg"></div>
     <div class="container">
@@ -297,63 +362,50 @@
       </div>
       <div class="testimonials-slider">
         <div class="testimonials-track" id="testimonialsTrack">
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <blockquote class="testimonial-quote">
-              "Working with Lubna was an absolute dream. She listened deeply, understood our vision, and transformed our home into something far beyond what we had imagined. Every detail is perfect."
-            </blockquote>
+            <blockquote class="testimonial-quote">"Working with Lubna was an absolute dream. She listened deeply, understood our vision, and transformed our villa into something far beyond what we had imagined. Every detail is perfect."</blockquote>
             <div class="testimonial-author">
               <div class="author-avatar">S</div>
               <div class="author-info">
                 <strong class="author-name">Sarah Al-Mansouri</strong>
-                <span class="author-project">The Ivory Residence, Dubai</span>
+                <span class="author-project">Villa Interior, Riyadh</span>
               </div>
             </div>
           </div>
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <blockquote class="testimonial-quote">
-              "Lubna's ability to blend modern luxury with timeless elegance is unmatched. Our office now commands the respect our brand deserves. A truly professional and gifted designer."
-            </blockquote>
+            <blockquote class="testimonial-quote">"Lubna's ability to blend modern luxury with timeless elegance is unmatched. Our office now commands the respect our brand deserves. The execution was flawless from start to finish."</blockquote>
             <div class="testimonial-author">
               <div class="author-avatar">K</div>
               <div class="author-info">
-                <strong class="author-name">Khalid Rashid</strong>
-                <span class="author-project">Executive Office Tower, Abu Dhabi</span>
+                <strong class="author-name">Khalid Al-Rashid</strong>
+                <span class="author-project">Executive Office, Jeddah</span>
               </div>
             </div>
           </div>
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <blockquote class="testimonial-quote">
-              "The renovation consultation was worth every penny. Lubna's guidance saved us from costly mistakes and the final result is a masterpiece. Our penthouse is now featured in design magazines."
-            </blockquote>
+            <blockquote class="testimonial-quote">"LJ Design managed our entire project — design, fit-out, and furnishing — with exceptional professionalism. Our home is now a masterpiece we're proud to share with everyone."</blockquote>
             <div class="testimonial-author">
               <div class="author-avatar">N</div>
               <div class="author-info">
                 <strong class="author-name">Nadia &amp; Omar Hassan</strong>
-                <span class="author-project">Opulent Penthouse Suite, Riyadh</span>
+                <span class="author-project">Full Home Fit-Out, Riyadh</span>
               </div>
             </div>
           </div>
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <blockquote class="testimonial-quote">
-              "From the first consultation to the final reveal, LJ Interior Design demonstrated nothing short of brilliance. Our restaurant's atmosphere now keeps guests coming back night after night."
-            </blockquote>
+            <blockquote class="testimonial-quote">"The home styling service transformed our space in just days. Lubna has an incredible eye — she knows exactly how to layer textures, light, and objects to create pure magic."</blockquote>
             <div class="testimonial-author">
               <div class="author-avatar">F</div>
               <div class="author-info">
                 <strong class="author-name">Fatima Al-Zahra</strong>
-                <span class="author-project">The Crimson Dining Club, Beirut</span>
+                <span class="author-project">Home Styling, Jeddah</span>
               </div>
             </div>
           </div>
-
         </div>
         <div class="slider-controls">
           <button class="slider-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
@@ -364,7 +416,7 @@
     </div>
   </section>
 
-  <!-- ===== CONTACT SECTION ===== -->
+  <!-- ===== CONTACT ===== -->
   <section class="contact section" id="contact">
     <div class="container">
       <div class="contact-grid">
@@ -375,39 +427,27 @@
           <p class="contact-desc">Ready to transform your space? We'd love to hear about your vision. Reach out and let's begin the journey toward your dream interior.</p>
           <ul class="contact-details">
             <li>
-              <span class="contact-icon">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" stroke-width="1.2"/></svg>
-              </span>
-              <span>Dubai, United Arab Emirates</span>
+              <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" stroke-width="1.2"/></svg></span>
+              <span>Saudi Arabia</span>
             </li>
             <li>
-              <span class="contact-icon">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" stroke="currentColor" stroke-width="1.2"/></svg>
-              </span>
-              <span>hello@ljinteriordesign.com</span>
+              <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" stroke="currentColor" stroke-width="1.2"/></svg></span>
+              <a href="tel:+966505538629">+966 50 553 8629</a>
             </li>
             <li>
-              <span class="contact-icon">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" stroke="currentColor" stroke-width="1.2"/></svg>
-              </span>
-              <span>+971 50 123 4567</span>
+              <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" stroke="currentColor" stroke-width="1.2"/></svg></span>
+              <span>hello@ljdesign.sa</span>
             </li>
           </ul>
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-instagram"
-          >
+          <a href="https://www.instagram.com/ljdesignsa" target="_blank" rel="noopener noreferrer" class="btn btn-instagram">
             <svg class="instagram-icon" viewBox="0 0 24 24" fill="none">
               <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
               <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
             </svg>
-            Follow on Instagram
+            @ljdesignsa
           </a>
         </div>
-
         <div class="contact-form-wrap reveal-right">
           <form class="contact-form" id="contactForm" novalidate>
             <div class="form-row">
@@ -424,17 +464,17 @@
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+1 (000) 000-0000" />
+              <input type="tel" id="phone" name="phone" placeholder="+966 5X XXX XXXX" />
             </div>
             <div class="form-group">
               <label for="service">Service Interested In</label>
               <select id="service" name="service">
                 <option value="" disabled selected>Select a service…</option>
-                <option>Residential Interior Design</option>
-                <option>Commercial Interior Design</option>
-                <option>Space Planning</option>
-                <option>Furniture Selection</option>
-                <option>Renovation Consultation</option>
+                <option>Design, Execution &amp; FF&amp;E</option>
+                <option>Fit-Out &amp; Construction</option>
+                <option>Project Management</option>
+                <option>Home Styling</option>
+                <option>Residential Design</option>
               </select>
             </div>
             <div class="form-group">
@@ -461,8 +501,14 @@
     <div class="footer-container">
       <div class="footer-brand">
         <a href="#home" class="nav-logo footer-logo">
-          <span class="logo-lj">LJ</span>
-          <span class="logo-text">Interior Design</span>
+          <svg class="logo-svg" viewBox="0 0 90 72" fill="none">
+            <rect x="4" y="6" width="11" height="46" fill="#C4562A"/>
+            <rect x="4" y="41" width="28" height="11" fill="#C4562A"/>
+            <rect x="32" y="6" width="11" height="44" fill="#7B9BB5"/>
+            <path d="M 43 50 Q 43 64 30 64 Q 18 64 18 55" stroke="#7B9BB5" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <text x="47" y="68" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#c9a84c" letter-spacing="1">Design</text>
+          </svg>
+          <span class="logo-wordmark">Interior Design</span>
         </a>
         <p class="footer-tagline">Transforming Spaces Into Timeless Experiences</p>
       </div>
@@ -476,16 +522,19 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2025 LJ Interior Design. All rights reserved.</p>
-        <p>Designed with excellence by Lubna.</p>
+        <p>Designed with excellence by Lubna — Saudi Arabia</p>
       </div>
     </div>
   </footer>
 
-  <!-- Back to top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
+  <!-- Three.js for 3D hero -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- VanillaTilt for 3D card tilt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
