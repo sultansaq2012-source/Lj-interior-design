@@ -43,78 +43,169 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── Three.js 3D Hero ────────────────────────────── */
+/* ── Three.js 3D Hero — Extruded LJ Logo ─────────── */
 (function initHero() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas || typeof THREE === 'undefined') return;
+
+  /* Hide the flat SVG logo — 3D version takes over */
+  const htmlLogo = document.querySelector('.hero-logo-big');
+  if (htmlLogo) htmlLogo.style.opacity = '0';
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.set(0, 0, 30);
+  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
+  camera.position.set(0, 0, 38);
 
-  /* Ambient warm glow */
-  scene.add(new THREE.AmbientLight(0x1a1208, 1));
-  const pointA = new THREE.PointLight(0xc9a84c, 2.5, 80);
-  pointA.position.set(10, 15, 10);
-  scene.add(pointA);
-  const pointB = new THREE.PointLight(0xC4562A, 1.5, 60);
-  pointB.position.set(-15, -10, 5);
-  scene.add(pointB);
-  const pointC = new THREE.PointLight(0x7B9BB5, 1.2, 60);
-  pointC.position.set(20, -5, -5);
-  scene.add(pointC);
+  /* Lights */
+  scene.add(new THREE.AmbientLight(0x1a1208, 0.7));
+  const keyLight = new THREE.DirectionalLight(0xfff8e8, 2.5);
+  keyLight.position.set(8, 18, 14);
+  scene.add(keyLight);
+  const goldLight = new THREE.PointLight(0xc9a84c, 3.5, 70);
+  goldLight.position.set(0, 6, 16);
+  scene.add(goldLight);
+  const rustLight = new THREE.PointLight(0xC4562A, 2.5, 55);
+  rustLight.position.set(-16, -8, 6);
+  scene.add(rustLight);
+  const steelLight = new THREE.PointLight(0x7B9BB5, 2, 55);
+  steelLight.position.set(16, -4, 4);
+  scene.add(steelLight);
 
-  /* Floating orbs — mix of gold, rust, and steel */
-  const orbColors = [0xc9a84c, 0xC4562A, 0x7B9BB5, 0xe8d5a3, 0x9a7c2e];
-  const orbs = [];
-  for (let i = 0; i < 55; i++) {
-    const r    = Math.random() * 0.55 + 0.1;
-    const geo  = new THREE.SphereGeometry(r, 12, 12);
-    const col  = orbColors[Math.floor(Math.random() * orbColors.length)];
-    const mat  = new THREE.MeshStandardMaterial({
-      color: col,
-      roughness: 0.3,
-      metalness: 0.8,
-      emissive: col,
-      emissiveIntensity: Math.random() * 0.25 + 0.05,
-      transparent: true,
-      opacity: Math.random() * 0.5 + 0.25,
-    });
+  /* ── 3D Extruded LJ Letters ── */
+  const extrudeSettings = {
+    depth: 6,
+    bevelEnabled: true,
+    bevelThickness: 0.9,
+    bevelSize: 0.45,
+    bevelSegments: 5,
+  };
+
+  /* L shape — rust/orange */
+  const lShape = new THREE.Shape();
+  lShape.moveTo(-13, -11);
+  lShape.lineTo(-13,  14);
+  lShape.lineTo( -9,  14);
+  lShape.lineTo( -9,  -7);
+  lShape.lineTo(  1,  -7);
+  lShape.lineTo(  1, -11);
+  lShape.closePath();
+
+  const lMesh = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(lShape, extrudeSettings),
+    new THREE.MeshStandardMaterial({
+      color: 0xC4562A, roughness: 0.05, metalness: 0.95,
+      emissive: 0xC4562A, emissiveIntensity: 0.18,
+    })
+  );
+  lMesh.position.z = -2.5;
+
+  /* J shape — steel blue, overlapping the L's top */
+  const jShape = new THREE.Shape();
+  /* vertical bar */
+  jShape.moveTo( 1,  -5);
+  jShape.lineTo( 1,  14);
+  jShape.lineTo( 5,  14);
+  jShape.lineTo( 5,  -9);
+  /* hook curves left */
+  jShape.bezierCurveTo( 5, -16, -4, -16, -6,  -9);
+  jShape.lineTo(-4,  -6);
+  jShape.bezierCurveTo(-2,  -9,  1, -9,  1,  -5);
+  jShape.closePath();
+
+  const jMesh = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(jShape, extrudeSettings),
+    new THREE.MeshStandardMaterial({
+      color: 0x7B9BB5, roughness: 0.05, metalness: 0.95,
+      emissive: 0x7B9BB5, emissiveIntensity: 0.12,
+    })
+  );
+  jMesh.position.z = 2.5;
+
+  /* Group */
+  const logoGroup = new THREE.Group();
+  logoGroup.add(lMesh);
+  logoGroup.add(jMesh);
+  logoGroup.position.y = 4;
+  scene.add(logoGroup);
+
+  /* ── Orbiting rings ── */
+  const ringData = [
+    { r: 10, tube: 0.05, col: 0xc9a84c, opacity: 0.18, rx: 0.4, ry: 0.3 },
+    { r: 15, tube: 0.04, col: 0xC4562A, opacity: 0.12, rx: 1.1, ry: 0.8 },
+    { r: 20, tube: 0.03, col: 0x7B9BB5, opacity: 0.08, rx: 0.6, ry: 1.4 },
+  ];
+  const rings = ringData.map(d => {
+    const mesh = new THREE.Mesh(
+      new THREE.TorusGeometry(d.r, d.tube, 6, 100),
+      new THREE.MeshBasicMaterial({ color: d.col, transparent: true, opacity: d.opacity })
+    );
+    mesh.rotation.x = d.rx;
+    mesh.rotation.y = d.ry;
+    mesh.position.y = 4;
+    scene.add(mesh);
+    return mesh;
+  });
+
+  /* ── Particle dust field ── */
+  const pCount = 300;
+  const pPos   = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const r     = Math.random() * 38 + 6;
+    pPos[i * 3]     = Math.cos(theta) * r;
+    pPos[i * 3 + 1] = (Math.random() - 0.5) * 40;
+    pPos[i * 3 + 2] = (Math.random() - 0.5) * 22;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const particles = new THREE.Points(pGeo,
+    new THREE.PointsMaterial({ color: 0xe8d5a3, size: 0.14, transparent: true, opacity: 0.6, sizeAttenuation: true })
+  );
+  scene.add(particles);
+
+  /* ── Background crystal gems ── */
+  const gemColors = [0xc9a84c, 0xC4562A, 0x7B9BB5, 0xe8d5a3];
+  const gems = Array.from({ length: 22 }, () => {
+    const r    = Math.random() * 0.9 + 0.2;
+    const col  = gemColors[Math.floor(Math.random() * gemColors.length)];
+    const wire = Math.random() > 0.45;
+    const geo  = Math.random() > 0.5
+      ? new THREE.OctahedronGeometry(r, 0)
+      : new THREE.IcosahedronGeometry(r, 0);
+    const mat  = wire
+      ? new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.28 })
+      : new THREE.MeshStandardMaterial({ color: col, roughness: 0.05, metalness: 1, transparent: true, opacity: 0.5 });
     const mesh = new THREE.Mesh(geo, mat);
-    const spread = 45;
     mesh.position.set(
-      (Math.random() - 0.5) * spread,
-      (Math.random() - 0.5) * spread,
-      (Math.random() - 0.5) * 20 - 5
+      (Math.random() - 0.5) * 48,
+      (Math.random() - 0.5) * 40,
+      (Math.random() - 0.5) * 16 - 8
     );
     mesh.userData = {
-      speedX: (Math.random() - 0.5) * 0.003,
-      speedY: (Math.random() - 0.5) * 0.003,
-      speedZ: (Math.random() - 0.5) * 0.002,
-      phaseX: Math.random() * Math.PI * 2,
-      phaseY: Math.random() * Math.PI * 2,
-      amp:    Math.random() * 2 + 0.5,
+      rx: (Math.random() - 0.5) * 0.013,
+      ry: (Math.random() - 0.5) * 0.013,
+      phase: Math.random() * Math.PI * 2,
+      amp: Math.random() * 1.5 + 0.5,
     };
     scene.add(mesh);
-    orbs.push(mesh);
-  }
+    return mesh;
+  });
 
-  /* Thin floating rings */
-  const ringGeo  = new THREE.TorusGeometry(3, 0.02, 8, 60);
-  const ringMat  = new THREE.MeshStandardMaterial({ color: 0xc9a84c, roughness: 0.2, metalness: 1, transparent: true, opacity: 0.15 });
-  const ring1    = new THREE.Mesh(ringGeo, ringMat);
-  ring1.rotation.x = 0.5; ring1.position.set(-8, 4, -8);
-  scene.add(ring1);
-  const ring2 = new THREE.Mesh(
-    new THREE.TorusGeometry(5, 0.015, 8, 60),
-    new THREE.MeshStandardMaterial({ color: 0x7B9BB5, roughness: 0.2, metalness: 1, transparent: true, opacity: 0.1 })
-  );
-  ring2.rotation.y = 0.8; ring2.position.set(10, -6, -12);
-  scene.add(ring2);
+  /* ── Expanding pulse rings from logo ── */
+  const pulseRings = Array.from({ length: 3 }, (_, i) => {
+    const mesh = new THREE.Mesh(
+      new THREE.TorusGeometry(1, 0.04, 6, 60),
+      new THREE.MeshBasicMaterial({ color: 0xc9a84c, transparent: true, opacity: 0 })
+    );
+    mesh.position.y = 4;
+    mesh.userData = { delay: i * 1.5 };
+    scene.add(mesh);
+    return mesh;
+  });
 
   /* Mouse parallax */
   let mouseX = 0, mouseY = 0;
@@ -126,32 +217,48 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   let t = 0;
   function animate() {
     requestAnimationFrame(animate);
-    t += 0.01;
+    t += 0.008;
 
-    orbs.forEach(o => {
-      const d = o.userData;
-      o.position.x += Math.sin(t * 0.4 + d.phaseX) * d.amp * 0.003;
-      o.position.y += Math.cos(t * 0.3 + d.phaseY) * d.amp * 0.003;
-      o.position.z += Math.sin(t * 0.2 + d.phaseX + d.phaseY) * 0.002;
-      /* Wrap */
-      if (o.position.x >  24) o.position.x = -24;
-      if (o.position.x < -24) o.position.x =  24;
-      if (o.position.y >  24) o.position.y = -24;
-      if (o.position.y < -24) o.position.y =  24;
+    /* Logo gentle float + tilt */
+    logoGroup.position.y  = 4 + Math.sin(t * 0.65) * 0.9;
+    logoGroup.rotation.y  = Math.sin(t * 0.38) * 0.1;
+    logoGroup.rotation.x  = Math.sin(t * 0.27) * 0.05;
+
+    /* Rings orbit */
+    rings[0].rotation.y += 0.004;  rings[0].rotation.z += 0.002;
+    rings[1].rotation.x += 0.003;  rings[1].rotation.z -= 0.002;
+    rings[2].rotation.y -= 0.002;  rings[2].rotation.x += 0.003;
+
+    /* Particle slow spin */
+    particles.rotation.y += 0.0008;
+
+    /* Gems drift */
+    gems.forEach(g => {
+      g.rotation.x += g.userData.rx;
+      g.rotation.y += g.userData.ry;
+      g.position.y += Math.sin(t * 0.5 + g.userData.phase) * g.userData.amp * 0.002;
     });
 
-    ring1.rotation.y += 0.002;
-    ring2.rotation.x += 0.0015;
-    ring2.rotation.z += 0.001;
+    /* Pulse rings expand and fade */
+    pulseRings.forEach(pr => {
+      const phase = (t * 0.5 + pr.userData.delay) % 4;
+      const scale = 1 + phase * 7;
+      const alpha = Math.max(0, 0.3 - phase * 0.08);
+      pr.scale.set(scale, scale, 1);
+      pr.material.opacity = alpha;
+    });
 
-    pointA.position.x = Math.sin(t * 0.3) * 15;
-    pointA.position.y = Math.cos(t * 0.2) * 12;
-    pointB.position.x = Math.cos(t * 0.25) * -18;
-    pointB.position.y = Math.sin(t * 0.18) * 10;
+    /* Moving lights */
+    goldLight.position.x = Math.sin(t * 0.45) * 13;
+    goldLight.position.y = Math.cos(t * 0.35) * 9 + 5;
+    rustLight.position.x = Math.cos(t * 0.38) * -14;
+    rustLight.position.y = Math.sin(t * 0.30) * 8;
 
-    camera.position.x += (mouseX * 3 - camera.position.x) * 0.03;
-    camera.position.y += (-mouseY * 2 - camera.position.y) * 0.03;
-    camera.lookAt(scene.position);
+    /* Mouse parallax — multi-depth */
+    camera.position.x += (mouseX * 4   - camera.position.x) * 0.04;
+    camera.position.y += (-mouseY * 2.5 - camera.position.y) * 0.04;
+    logoGroup.position.x = mouseX * -1.5;
+    camera.lookAt(0, 2, 0);
 
     renderer.render(scene, camera);
   }
