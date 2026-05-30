@@ -43,107 +43,25 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── Three.js Hero — Luxury Bokeh Background ────── */
+/* ── Hero photo parallax ─────────────────────────── */
 (function initHero() {
-  const canvas = document.getElementById('heroCanvas');
-  if (!canvas || typeof THREE === 'undefined') return;
+  const heroBg = document.getElementById('heroBg');
+  if (!heroBg) return;
 
-  /* Keep the SVG logo visible — Three.js is backdrop only */
-  const htmlLogo = document.querySelector('.hero-logo-big');
-  if (htmlLogo) htmlLogo.style.opacity = '1';
-
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 24);
-
-  /* ── Soft bokeh light orbs — like out-of-focus studio lights ── */
-  const palettes = [
-    { color: 0xd4a84b, opacity: 0.055 },
-    { color: 0xf5e8c8, opacity: 0.04  },
-    { color: 0xc9a84c, opacity: 0.065 },
-    { color: 0xfff3dc, opacity: 0.035 },
-    { color: 0xC4562A, opacity: 0.03  },
-    { color: 0xe8d5a3, opacity: 0.05  },
-    { color: 0xb89040, opacity: 0.07  },
-    { color: 0xf0e4c0, opacity: 0.04  },
-  ];
-
-  const bokeh = Array.from({ length: 20 }, (_, i) => {
-    const p = palettes[i % palettes.length];
-    const r = 1.8 + Math.random() * 4.5;
-    const mesh = new THREE.Mesh(
-      new THREE.SphereGeometry(r, 10, 10),
-      new THREE.MeshBasicMaterial({ color: p.color, transparent: true, opacity: p.opacity + Math.random() * 0.025 })
-    );
-    mesh.position.set(
-      (Math.random() - 0.5) * 44,
-      (Math.random() - 0.5) * 28,
-      -4 - Math.random() * 16
-    );
-    mesh.userData = {
-      vx: (Math.random() - 0.5) * 0.006,
-      vy: (Math.random() - 0.5) * 0.005,
-      ps: 0.15 + Math.random() * 0.25,
-      pp: Math.random() * Math.PI * 2,
-      base: p.opacity + Math.random() * 0.025,
-    };
-    scene.add(mesh);
-    return mesh;
-  });
-
-  /* ── Fine gold dust — tiny barely-visible points ── */
-  const pCount = 160;
-  const pPos   = new Float32Array(pCount * 3);
-  for (let i = 0; i < pCount; i++) {
-    pPos[i * 3]     = (Math.random() - 0.5) * 55;
-    pPos[i * 3 + 1] = (Math.random() - 0.5) * 35;
-    pPos[i * 3 + 2] = -10 - Math.random() * 14;
-  }
-  const pGeo = new THREE.BufferGeometry();
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({
-    color: 0xe8d5a3, size: 0.07, transparent: true, opacity: 0.35, sizeAttenuation: true,
-  })));
-
-  /* Mouse parallax */
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => {
-    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
-    my = (e.clientY / window.innerHeight - 0.5) * 2;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const heroH  = heroBg.parentElement.offsetHeight;
+        if (scrollY <= heroH) {
+          heroBg.style.transform = `translateY(${scrollY * 0.35}px)`;
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
-
-  let t = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    t += 0.004;
-
-    bokeh.forEach(b => {
-      b.position.x += b.userData.vx;
-      b.position.y += b.userData.vy;
-      b.material.opacity = b.userData.base + Math.sin(t * b.userData.ps + b.userData.pp) * 0.018;
-      if (b.position.x >  24) b.position.x = -24;
-      if (b.position.x < -24) b.position.x =  24;
-      if (b.position.y >  16) b.position.y = -16;
-      if (b.position.y < -16) b.position.y =  16;
-    });
-
-    camera.position.x += (mx * 1.5 - camera.position.x) * 0.03;
-    camera.position.y += (-my * 1   - camera.position.y) * 0.03;
-    camera.lookAt(0, 0, 0);
-
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
 })();
 
 /* ── Scroll reveal ───────────────────────────────── */
