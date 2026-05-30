@@ -595,12 +595,12 @@ input, textarea, select { font-family: inherit; }
   position: relative; width: 100%; height: 100%; overflow: hidden;
 }
 .p-img {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .p-img-fallback {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 0;
   transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .portfolio-card:hover .p-img,

@@ -43,195 +43,97 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── Three.js 3D Hero — Refined LJ Monogram ─────── */
+/* ── Three.js Hero — Luxury Bokeh Background ────── */
 (function initHero() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas || typeof THREE === 'undefined') return;
 
+  /* Keep the SVG logo visible — Three.js is backdrop only */
   const htmlLogo = document.querySelector('.hero-logo-big');
-  if (htmlLogo) htmlLogo.style.opacity = '0';
+  if (htmlLogo) htmlLogo.style.opacity = '1';
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
 
   const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.set(0, 0, 28);
+  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 24);
 
-  /* Lights — warm luxury */
-  scene.add(new THREE.AmbientLight(0x110d08, 1.2));
-  const keyLight = new THREE.DirectionalLight(0xfff4e0, 3.2);
-  keyLight.position.set(6, 14, 12);
-  scene.add(keyLight);
-  const fillLight = new THREE.DirectionalLight(0xc8d8e8, 0.8);
-  fillLight.position.set(-10, -4, 8);
-  scene.add(fillLight);
-  const goldLight = new THREE.PointLight(0xc9a84c, 4, 50);
-  goldLight.position.set(0, 4, 12);
-  scene.add(goldLight);
-  const rustLight = new THREE.PointLight(0xC4562A, 3, 40);
-  rustLight.position.set(-10, -5, 5);
-  scene.add(rustLight);
-  const steelLight = new THREE.PointLight(0x9bb8cc, 2.5, 40);
-  steelLight.position.set(10, 3, 5);
-  scene.add(steelLight);
+  /* ── Soft bokeh light orbs — like out-of-focus studio lights ── */
+  const palettes = [
+    { color: 0xd4a84b, opacity: 0.055 },
+    { color: 0xf5e8c8, opacity: 0.04  },
+    { color: 0xc9a84c, opacity: 0.065 },
+    { color: 0xfff3dc, opacity: 0.035 },
+    { color: 0xC4562A, opacity: 0.03  },
+    { color: 0xe8d5a3, opacity: 0.05  },
+    { color: 0xb89040, opacity: 0.07  },
+    { color: 0xf0e4c0, opacity: 0.04  },
+  ];
 
-  /* ── Extruded letters (scaled to feel balanced) ── */
-  const ext = { depth: 3.5, bevelEnabled: true, bevelThickness: 0.5, bevelSize: 0.28, bevelSegments: 8 };
-
-  /* L — rust metallic */
-  const lShape = new THREE.Shape();
-  lShape.moveTo(-7, -6);
-  lShape.lineTo(-7,  7.5);
-  lShape.lineTo(-5,  7.5);
-  lShape.lineTo(-5, -3.8);
-  lShape.lineTo( 0.5, -3.8);
-  lShape.lineTo( 0.5, -6);
-  lShape.closePath();
-
-  const lMesh = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(lShape, ext),
-    new THREE.MeshStandardMaterial({ color: 0xC4562A, roughness: 0.08, metalness: 0.92, emissive: 0xC4562A, emissiveIntensity: 0.12 })
-  );
-  lMesh.position.z = -1.5;
-
-  /* J — steel-blue metallic with curved hook */
-  const jShape = new THREE.Shape();
-  jShape.moveTo( 0.5, -2.8);
-  jShape.lineTo( 0.5,  7.5);
-  jShape.lineTo( 2.8,  7.5);
-  jShape.lineTo( 2.8, -5.2);
-  jShape.bezierCurveTo( 2.8, -9.2, -2.5, -9.2, -3.8, -5.4);
-  jShape.lineTo(-2.2, -3.8);
-  jShape.bezierCurveTo(-1.2, -5.5, 0.5, -5.5, 0.5, -2.8);
-  jShape.closePath();
-
-  const jMesh = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(jShape, ext),
-    new THREE.MeshStandardMaterial({ color: 0x7B9BB5, roughness: 0.08, metalness: 0.92, emissive: 0x7B9BB5, emissiveIntensity: 0.1 })
-  );
-  jMesh.position.z = 1.5;
-
-  const logoGroup = new THREE.Group();
-  logoGroup.add(lMesh);
-  logoGroup.add(jMesh);
-  logoGroup.position.set(0, 1.5, 0);
-  scene.add(logoGroup);
-
-  /* ── Elegant gold halo ring close around logo ── */
-  const haloRing = new THREE.Mesh(
-    new THREE.TorusGeometry(7, 0.04, 8, 120),
-    new THREE.MeshStandardMaterial({ color: 0xc9a84c, roughness: 0.1, metalness: 1, emissive: 0xc9a84c, emissiveIntensity: 0.35 })
-  );
-  haloRing.position.set(0, 1.5, 0);
-  scene.add(haloRing);
-
-  /* Slow outer orbit ring — very thin, steel */
-  const outerRing = new THREE.Mesh(
-    new THREE.TorusGeometry(11, 0.025, 6, 120),
-    new THREE.MeshBasicMaterial({ color: 0x7B9BB5, transparent: true, opacity: 0.2 })
-  );
-  outerRing.rotation.x = 1.1;
-  outerRing.rotation.y = 0.4;
-  outerRing.position.set(0, 1.5, 0);
-  scene.add(outerRing);
-
-  /* ── 4 accent diamond gems at cardinal points ── */
-  const gemAngles = [0, Math.PI / 2, Math.PI, Math.PI * 1.5];
-  const gems = gemAngles.map((angle, i) => {
-    const colors = [0xc9a84c, 0xC4562A, 0xc9a84c, 0x7B9BB5];
+  const bokeh = Array.from({ length: 20 }, (_, i) => {
+    const p = palettes[i % palettes.length];
+    const r = 1.8 + Math.random() * 4.5;
     const mesh = new THREE.Mesh(
-      new THREE.OctahedronGeometry(0.22, 0),
-      new THREE.MeshStandardMaterial({ color: colors[i], roughness: 0, metalness: 1, emissive: colors[i], emissiveIntensity: 0.5 })
+      new THREE.SphereGeometry(r, 10, 10),
+      new THREE.MeshBasicMaterial({ color: p.color, transparent: true, opacity: p.opacity + Math.random() * 0.025 })
     );
-    mesh.position.set(Math.cos(angle) * 7, 1.5 + Math.sin(angle) * 7, 0);
-    mesh.userData.angle = angle;
+    mesh.position.set(
+      (Math.random() - 0.5) * 44,
+      (Math.random() - 0.5) * 28,
+      -4 - Math.random() * 16
+    );
+    mesh.userData = {
+      vx: (Math.random() - 0.5) * 0.006,
+      vy: (Math.random() - 0.5) * 0.005,
+      ps: 0.15 + Math.random() * 0.25,
+      pp: Math.random() * Math.PI * 2,
+      base: p.opacity + Math.random() * 0.025,
+    };
     scene.add(mesh);
     return mesh;
   });
 
-  /* ── Scattered background star-dust particles ── */
-  const pCount = 220;
+  /* ── Fine gold dust — tiny barely-visible points ── */
+  const pCount = 160;
   const pPos   = new Float32Array(pCount * 3);
   for (let i = 0; i < pCount; i++) {
-    const theta = Math.random() * Math.PI * 2;
-    const r = 14 + Math.random() * 28;
-    pPos[i * 3]     = Math.cos(theta) * r;
-    pPos[i * 3 + 1] = (Math.random() - 0.5) * 36;
-    pPos[i * 3 + 2] = -6 - Math.random() * 20;
+    pPos[i * 3]     = (Math.random() - 0.5) * 55;
+    pPos[i * 3 + 1] = (Math.random() - 0.5) * 35;
+    pPos[i * 3 + 2] = -10 - Math.random() * 14;
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  const particles = new THREE.Points(pGeo,
-    new THREE.PointsMaterial({ color: 0xe8d5a3, size: 0.13, transparent: true, opacity: 0.55, sizeAttenuation: true })
-  );
-  scene.add(particles);
-
-  /* ── Single expanding pulse ring ── */
-  const pulseRing = new THREE.Mesh(
-    new THREE.TorusGeometry(1, 0.035, 6, 80),
-    new THREE.MeshBasicMaterial({ color: 0xc9a84c, transparent: true, opacity: 0 })
-  );
-  pulseRing.position.set(0, 1.5, 0);
-  scene.add(pulseRing);
+  scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({
+    color: 0xe8d5a3, size: 0.07, transparent: true, opacity: 0.35, sizeAttenuation: true,
+  })));
 
   /* Mouse parallax */
-  let mouseX = 0, mouseY = 0;
+  let mx = 0, my = 0;
   document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / window.innerWidth  - 0.5) * 2;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
   }, { passive: true });
 
   let t = 0;
   function animate() {
     requestAnimationFrame(animate);
-    t += 0.007;
+    t += 0.004;
 
-    /* Logo gentle float + subtle sway */
-    logoGroup.position.y = 1.5 + Math.sin(t * 0.55) * 0.45;
-    logoGroup.rotation.y = Math.sin(t * 0.32) * 0.06;
-    logoGroup.rotation.x = Math.sin(t * 0.22) * 0.03;
-
-    /* Halo ring slow rotation */
-    haloRing.rotation.z += 0.0018;
-    haloRing.position.y = logoGroup.position.y;
-    outerRing.rotation.y += 0.0012;
-    outerRing.rotation.z -= 0.0008;
-    outerRing.position.y = logoGroup.position.y;
-
-    /* Accent gems orbit the halo */
-    gems.forEach((g, i) => {
-      const angle = gemAngles[i] + t * 0.28;
-      g.position.x = Math.cos(angle) * 7;
-      g.position.y = logoGroup.position.y + Math.sin(angle) * 7;
-      g.rotation.x += 0.02;
-      g.rotation.y += 0.015;
+    bokeh.forEach(b => {
+      b.position.x += b.userData.vx;
+      b.position.y += b.userData.vy;
+      b.material.opacity = b.userData.base + Math.sin(t * b.userData.ps + b.userData.pp) * 0.018;
+      if (b.position.x >  24) b.position.x = -24;
+      if (b.position.x < -24) b.position.x =  24;
+      if (b.position.y >  16) b.position.y = -16;
+      if (b.position.y < -16) b.position.y =  16;
     });
 
-    /* Particles slow drift */
-    particles.rotation.y += 0.0005;
-    particles.rotation.z += 0.0002;
-
-    /* Pulse ring */
-    const phase = (t * 0.4) % 3.5;
-    pulseRing.scale.set(1 + phase * 9, 1 + phase * 9, 1);
-    pulseRing.material.opacity = Math.max(0, 0.22 - phase * 0.065);
-    pulseRing.position.y = logoGroup.position.y;
-
-    /* Dynamic lights */
-    goldLight.position.x  = Math.sin(t * 0.4) * 9;
-    goldLight.position.y  = Math.cos(t * 0.3) * 6 + 4;
-    rustLight.position.x  = Math.cos(t * 0.35) * -10;
-    rustLight.position.y  = Math.sin(t * 0.28) * 6;
-
-    /* Mouse parallax */
-    camera.position.x += (mouseX * 3   - camera.position.x) * 0.04;
-    camera.position.y += (-mouseY * 2  - camera.position.y) * 0.04;
-    logoGroup.position.x = mouseX * -1;
-    camera.lookAt(0, 1.5, 0);
+    camera.position.x += (mx * 1.5 - camera.position.x) * 0.03;
+    camera.position.y += (-my * 1   - camera.position.y) * 0.03;
+    camera.lookAt(0, 0, 0);
 
     renderer.render(scene, camera);
   }
