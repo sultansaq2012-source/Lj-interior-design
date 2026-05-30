@@ -593,18 +593,12 @@ input, textarea, select { font-family: inherit; }
 
 .portfolio-img-wrap {
   position: relative; width: 100%; height: 100%; overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-size 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-.p-img {
-  position: absolute; inset: 0; z-index: 1;
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.p-img-fallback {
-  position: absolute; inset: 0; z-index: 0;
-  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.portfolio-card:hover .p-img,
-.portfolio-card:hover .p-img-fallback { transform: scale(1.07); }
+.portfolio-card:hover .portfolio-img-wrap { background-size: 107%; }
 
 /* Gradient fallbacks — dark warm tones matching the project photos */
 .pg-1 {
