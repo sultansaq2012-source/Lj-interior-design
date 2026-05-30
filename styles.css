@@ -584,10 +584,11 @@ input, textarea, select { font-family: inherit; }
   grid-auto-rows: 360px;
   gap: 1.2rem;
 }
-.portfolio-card { overflow: hidden; border-radius: var(--radius); }
+.portfolio-card { border-radius: 2px; overflow: hidden; transition: box-shadow 0.5s ease, transform 0.5s ease; }
 .portfolio-card--wide { grid-column: span 2; }
 .portfolio-card--tall { grid-row: span 2; }
 .portfolio-card.hidden { display: none; }
+.portfolio-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.15); transform: translateY(-3px); }
 
 /* VanillaTilt needs transform-style */
 .tilt-card {
@@ -605,8 +606,6 @@ input, textarea, select { font-family: inherit; }
   transition: background-size 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .portfolio-card:hover .portfolio-img-wrap { background-size: 108%; }
-.portfolio-card { border-radius: 2px; overflow: hidden; transition: box-shadow 0.5s ease, transform 0.5s ease; }
-.portfolio-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.15); transform: translateY(-3px); }
 
 /* Gradient fallbacks — dark warm tones matching the project photos */
 .pg-1 {
