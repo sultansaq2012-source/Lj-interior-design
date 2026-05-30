@@ -43,27 +43,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── Hero photo parallax ─────────────────────────── */
-(function initHero() {
-  const heroBg = document.getElementById('heroBg');
-  if (!heroBg) return;
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const heroH  = heroBg.parentElement.offsetHeight;
-        if (scrollY <= heroH) {
-          heroBg.style.transform = `translateY(${scrollY * 0.35}px)`;
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
-
 /* ── Scroll reveal ───────────────────────────────── */
 const revealEls = document.querySelectorAll('.reveal-up,.reveal-fade,.reveal-left,.reveal-right');
 const revealObs = new IntersectionObserver(entries => {

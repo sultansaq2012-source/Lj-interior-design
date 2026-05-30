@@ -249,19 +249,17 @@ input, textarea, select { font-family: inherit; }
 }
 
 .hero-photo-bg {
-  position: absolute; inset: -8%;
-  background-image: url('images/project1.jpg');
-  background-size: cover;
-  background-position: center 30%;
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(196,86,42,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 30%, rgba(123,155,181,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(196,129,58,0.06) 0%, transparent 65%);
   z-index: 0;
-  will-change: transform;
 }
 
 .hero-overlay {
   position: absolute; inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(7,6,4,0.72) 0%, rgba(7,6,4,0.38) 45%, rgba(7,6,4,0.82) 100%),
-    radial-gradient(ellipse at 50% 50%, rgba(196,129,58,0.08) 0%, transparent 60%);
+  background: linear-gradient(to bottom, rgba(7,6,4,0.2) 0%, transparent 40%, rgba(7,6,4,0.4) 100%);
   z-index: 1;
 }
 
