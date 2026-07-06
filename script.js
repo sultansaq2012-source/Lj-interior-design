@@ -1,202 +1,137 @@
-/* =====================================================
-   LJ Interior Design — JavaScript v2
-   Three.js hero · VanillaTilt · Slider · Form
-   ===================================================== */
+/* LJ Design — interactions: reveal on scroll, work filters, mobile nav, contact form */
 
-/* ── Navbar ──────────────────────────────────────── */
-const navbar   = document.getElementById('navbar');
-const backToTop = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  navbar.classList.toggle('scrolled', y > 60);
-  backToTop.classList.toggle('visible', y > 500);
-}, { passive: true });
-
-backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-/* ── Mobile nav ──────────────────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('navLinks');
-
-hamburger.addEventListener('click', () => {
-  const open = hamburger.classList.toggle('active');
-  navLinks.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-navLinks.querySelectorAll('.nav-link').forEach(l => {
-  l.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navLinks.classList.remove('open');
-    document.body.style.overflow = '';
-  });
-});
-
-/* ── Smooth scroll ───────────────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (!target) return;
-    e.preventDefault();
-    const top = target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-});
-
-/* ── Scroll reveal ───────────────────────────────── */
-const revealEls = document.querySelectorAll('.reveal-up,.reveal-fade,.reveal-left,.reveal-right');
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }});
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => revealObs.observe(el));
-
-/* ── Counter animation ───────────────────────────── */
-document.querySelectorAll('.stat-number[data-target]').forEach(el => {
-  const obs = new IntersectionObserver(entries => {
-    if (!entries[0].isIntersecting) return;
-    obs.unobserve(el);
-    const target = parseInt(el.dataset.target, 10);
-    const step   = target / (1800 / 16);
-    let cur = 0;
-    const timer = setInterval(() => {
-      cur = Math.min(cur + step, target);
-      el.textContent = Math.floor(cur);
-      if (cur >= target) { el.textContent = target; clearInterval(timer); }
-    }, 16);
-  }, { threshold: 0.5 });
-  obs.observe(el);
-});
-
-/* ── VanillaTilt on portfolio cards ──────────────── */
-if (typeof VanillaTilt !== 'undefined') {
-  VanillaTilt.init(document.querySelectorAll('.tilt-card'), {
-    max:           8,
-    speed:         400,
-    glare:         true,
-    'max-glare':   0.12,
-    perspective:   1000,
-    scale:         1.02,
-    gyroscope:     true,
-  });
-}
-
-/* ── Portfolio filter ────────────────────────────── */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('.portfolio-card').forEach(card => {
-      const cats = card.dataset.category || '';
-      if (filter === 'all' || cats.includes(filter)) {
-        card.classList.remove('hidden');
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-      } else {
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.94)';
-        setTimeout(() => card.classList.add('hidden'), 350);
+// ---------- Reveal on scroll ----------
+const io = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
       }
     });
+  },
+  { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+);
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// ---------- Mobile nav ----------
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+});
+
+navLinks.addEventListener('click', (e) => {
+  if (e.target.closest('a')) {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+});
+
+// ---------- Work filter tabs ----------
+const tabs = document.querySelectorAll('.tab-btn');
+const cards = document.querySelectorAll('.project-card');
+const workEmpty = document.getElementById('workEmpty');
+
+tabs.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    tabs.forEach((b) => {
+      b.dataset.active = 'false';
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.dataset.active = 'true';
+    btn.setAttribute('aria-selected', 'true');
+
+    const filter = btn.dataset.tab;
+    let visible = 0;
+    cards.forEach((card) => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('filtered-out', !show);
+      if (show) {
+        visible += 1;
+        card.classList.add('in'); // re-shown cards must not stay in the pre-reveal state
+      }
+    });
+    workEmpty.hidden = visible > 0;
   });
 });
-document.querySelectorAll('.portfolio-card').forEach(c => {
-  c.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-});
 
-/* ── Testimonials slider ─────────────────────────── */
-const track    = document.getElementById('testimonialsTrack');
-const dotsWrap = document.getElementById('sliderDots');
-const slides   = track ? track.querySelectorAll('.testimonial-card') : [];
-let current = 0, autoTimer = null;
-
-if (slides.length && track) {
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', `Slide ${i + 1}`);
-    d.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(d);
-  });
-
-  function updateDots() {
-    dotsWrap.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
-  }
-  function goTo(i) {
-    current = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    updateDots();
-    resetAuto();
-  }
-
-  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft')  goTo(current - 1);
-    if (e.key === 'ArrowRight') goTo(current + 1);
-  });
-
-  let touchX = 0;
-  track.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend',   e => {
-    const diff = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
-  }, { passive: true });
-
-  function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => goTo(current + 1), 5200); }
-  resetAuto();
-}
-
-/* ── Contact form ────────────────────────────────── */
-const form        = document.getElementById('contactForm');
+// ---------- Contact form ----------
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = submitBtn.querySelector('.btn-text');
+const btnLoading = submitBtn.querySelector('.btn-loading');
 const formSuccess = document.getElementById('formSuccess');
-const submitBtn   = document.getElementById('submitBtn');
+const formFail = document.getElementById('formFail');
 
-function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-function setError(id, errId, msg) {
-  const inp = document.getElementById(id);
-  const err = document.getElementById(errId);
-  if (!inp || !err) return !msg;
-  err.textContent = msg;
-  inp.style.borderColor = msg ? '#e05c4a' : '';
-  return !msg;
+function setFieldError(id, message) {
+  const input = document.getElementById(id);
+  const error = document.getElementById(id + 'Error');
+  input.closest('.form-field').classList.toggle('has-error', Boolean(message));
+  error.textContent = message || '';
 }
 
-if (form) {
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const name    = document.getElementById('name').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    let ok = true;
-    ok = setError('name',    'nameError',    name    ? '' : 'Please enter your name.')    && ok;
-    ok = setError('email',   'emailError',   !email  ? 'Please enter your email.' : !validateEmail(email) ? 'Please enter a valid email.' : '') && ok;
-    ok = setError('message', 'messageError', message ? '' : 'Please enter your message.') && ok;
-    if (!ok) return;
+function validate() {
+  let ok = true;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
 
-    const btnText    = submitBtn.querySelector('.btn-text');
-    const btnLoading = submitBtn.querySelector('.btn-loading');
-    btnText.hidden = true; btnLoading.hidden = false; submitBtn.disabled = true;
-    await new Promise(r => setTimeout(r, 1500));
+  if (!name) {
+    setFieldError('name', 'Please tell us your name.');
+    ok = false;
+  } else setFieldError('name', '');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setFieldError('email', 'Please enter a valid email address.');
+    ok = false;
+  } else setFieldError('email', '');
+
+  if (!message) {
+    setFieldError('message', 'Tell us a little about the space.');
+    ok = false;
+  } else setFieldError('message', '');
+
+  return ok;
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  formSuccess.hidden = true;
+  formFail.hidden = true;
+  if (!validate()) return;
+
+  // No backend yet — hand the enquiry to WhatsApp with the form contents prefilled.
+  submitBtn.disabled = true;
+  btnText.hidden = true;
+  btnLoading.hidden = false;
+
+  try {
+    const lines = [
+      'Hello LJ Design, I would like to start a project.',
+      'Name: ' + form.name.value.trim(),
+      'Email: ' + form.email.value.trim(),
+      form.phone.value.trim() && 'Phone: ' + form.phone.value.trim(),
+      form.service.value && 'Project type: ' + form.service.value,
+      'Message: ' + form.message.value.trim(),
+    ].filter(Boolean);
+
+    window.open(
+      'https://wa.me/966505538629?text=' + encodeURIComponent(lines.join('\n')),
+      '_blank',
+      'noopener'
+    );
+    formSuccess.hidden = false;
     form.reset();
-    formSuccess.hidden  = false;
-    btnText.hidden      = false; btnLoading.hidden = true; submitBtn.disabled = false;
-    setTimeout(() => { formSuccess.hidden = true; }, 6000);
-  });
-  ['name','email','message'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', () => setError(id, `${id}Error`, ''));
-  });
-}
-
-/* ── Active nav highlight on scroll ─────────────── */
-const navObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      document.querySelectorAll('.nav-link').forEach(l => l.style.color = '');
-      const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
-      if (a) a.style.color = 'var(--gold)';
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('section[id]').forEach(s => navObs.observe(s));
+  } catch (err) {
+    formFail.hidden = false;
+  } finally {
+    submitBtn.disabled = false;
+    btnText.hidden = false;
+    btnLoading.hidden = true;
+  }
+});
