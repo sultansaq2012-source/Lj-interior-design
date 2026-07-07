@@ -23,7 +23,7 @@
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-roman:   'Cinzel', 'Cormorant Garamond', serif;
-  --font-script:  'Playfair Display', Georgia, serif;
+  --font-script:  'Cinzel', 'Cormorant Garamond', serif;
   --font-body:    'Raleway', sans-serif;
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -78,12 +78,12 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .section-title--xl { font-size: clamp(1.8rem, 3.8vw, 3.2rem); line-height: 1.18; }
 
 .script-accent {
-  font-family: var(--font-script);
-  font-style: italic;
-  font-weight: 700;
+  font-family: var(--font-roman);
+  font-style: normal;
+  font-weight: 600;
   color: var(--tan);
   font-size: 1em;
-  line-height: 1;
+  line-height: inherit;
 }
 .script-accent--light { color: var(--tan); }
 
@@ -157,9 +157,9 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 0.8rem; }
 .brand-logo { width: 46px; height: auto; }
 .brand-script {
-  font-family: var(--font-script);
-  font-style: italic;
-  font-weight: 700; font-size: 1.45rem; line-height: 1; color: var(--brown);
+  font-family: var(--font-roman);
+  font-weight: 600; font-size: 1.15rem; line-height: 1; color: var(--brown);
+  letter-spacing: 0.08em;
   transform: translateY(2px);
 }
 .brand-script--light { color: var(--brown); }
@@ -515,7 +515,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
   display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
   font-size: 0.72rem; opacity: 0.6;
 }
-.footer-script { font-style: italic; font-weight: 700; font-size: 1.05rem; opacity: 1; }
+.footer-script { font-family: var(--font-roman); font-weight: 400; font-size: 0.82rem; letter-spacing: 0.08em; opacity: 0.85; }
 
 @media (max-width: 960px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -542,7 +542,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
   background: var(--vanilla);
 }
 .gallery-head { text-align: center; margin-bottom: 1rem; }
-.gallery-head .script-accent { font-size: 1.6rem; }
+.gallery-head .script-accent { font-size: 1.3rem; letter-spacing: 0.1em; }
 .gallery-hint {
   font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
   opacity: 0.55; margin-top: 0.4rem;
