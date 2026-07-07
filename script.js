@@ -1,5 +1,12 @@
 /* LJ Design — interactions: reveal on scroll, work filters, mobile nav, contact form */
 
+// ---------- Always open at the top ----------
+// Stop the browser from restoring the previous scroll position on reload/return.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', () => {
+  if (!location.hash) window.scrollTo(0, 0);
+});
+
 // ---------- Reveal on scroll ----------
 const io = new IntersectionObserver(
   (entries) => {
