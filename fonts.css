@@ -113,3 +113,11 @@
   font-display: swap;
   src: url('fonts/DancingScript-700.woff2') format('woff2');
 }
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/PlayfairDisplay-700i.woff2') format('woff2');
+}
