@@ -276,7 +276,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
   background: rgba(240, 237, 229, 0.6);
   padding: 1.1rem 0; overflow: hidden;
 }
-.marquee { display: flex; white-space: nowrap; animation: scroll 38s linear infinite; }
+.marquee { display: flex; white-space: nowrap; animation: scroll 110s linear infinite; }
 .marquee-track {
   display: flex; align-items: center; gap: 2.4rem; padding: 0 1.2rem;
   font-family: var(--font-display); font-style: italic; font-weight: 300;
