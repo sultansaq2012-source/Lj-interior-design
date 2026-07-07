@@ -1,10 +1,28 @@
 /* LJ Design — interactions: reveal on scroll, work filters, mobile nav, contact form */
 
 // ---------- Always open at the top ----------
-// Stop the browser from restoring the previous scroll position on reload/return.
+// Stop the browser from restoring the previous scroll position, drop any
+// section anchor from the URL, and force the top on every way a page can
+// (re)appear — initial load, full load, and back/forward cache restores.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+const forceTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+forceTop();
+window.addEventListener('load', forceTop);
 window.addEventListener('pageshow', () => {
-  if (!location.hash) window.scrollTo(0, 0);
+  forceTop();
+  setTimeout(forceTop, 0); // Safari restores scroll async — beat it to it
+});
+
+// In-page menu links scroll without putting a #section in the URL,
+// so reloading or sharing the address always opens at the top.
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  const target = document.querySelector(link.getAttribute('href'));
+  if (!target) return;
+  e.preventDefault();
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 // ---------- Reveal on scroll ----------
