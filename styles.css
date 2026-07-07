@@ -557,3 +557,69 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .circular-gallery:active { cursor: grabbing; }
 .circular-gallery canvas { display: block; }
 @media (max-width: 960px) { .circular-gallery { height: 380px; } }
+
+/* ---------- Projects page — linear cards ---------- */
+.projects-hero { padding: 4.5rem 0 1rem; }
+.projects-lede { margin-top: 1.8rem; max-width: 30rem; font-size: 0.95rem; color: rgba(69, 64, 58, 0.75); }
+
+.linear-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem; align-items: start;
+}
+.linear-card {
+  background: var(--vanilla);
+  border: 1px solid var(--line); border-radius: 6px;
+  box-shadow: var(--shadow-vol-sm);
+  overflow: hidden;
+  transition: transform 0.8s var(--ease), box-shadow 0.8s var(--ease);
+}
+.linear-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-vol); }
+.linear-card-img { overflow: hidden; }
+.linear-card-img img {
+  width: 100%; height: 340px; object-fit: cover; display: block;
+  transition: transform 1.4s var(--ease);
+}
+.linear-card:hover .linear-card-img img { transform: scale(1.05); }
+
+.linear-card-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  background: var(--band);
+  padding: 1rem 1.2rem;
+}
+.linear-card-title {
+  font-family: var(--font-roman); font-weight: 400;
+  font-size: 0.98rem; letter-spacing: 0.04em;
+}
+.linear-card-toggle {
+  flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--vanilla); color: var(--brown);
+  border: 1px solid var(--line);
+  transition: background 0.3s ease, color 0.3s ease, transform 0.5s var(--ease);
+}
+.linear-card-toggle svg { width: 18px; height: 18px; }
+.linear-card-toggle:hover { background: var(--tan); color: var(--white); }
+.linear-card.open .linear-card-toggle { transform: rotate(45deg); background: var(--tan); color: var(--white); border-color: var(--tan); }
+
+.linear-card-panel {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.7s var(--ease);
+}
+.linear-card.open .linear-card-panel { max-height: 480px; }
+.linear-card-body { padding: 1.3rem 1.2rem 1.5rem; border-top: 1px solid var(--line); }
+.linear-card-body p { font-size: 0.88rem; color: rgba(69, 64, 58, 0.78); }
+.linear-card-facts { margin-top: 1.1rem; display: grid; gap: 0.7rem; }
+.linear-card-facts div { font-family: var(--font-display); font-size: 1.02rem; }
+.linear-card-facts span {
+  display: block; font-family: var(--font-body);
+  font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.55;
+}
+.projects-back { margin-top: 3.5rem; display: flex; justify-content: center; }
+.nav-link--current { opacity: 1; }
+.nav-link--current::after { width: 100%; }
+
+@media (max-width: 960px) {
+  .linear-grid { grid-template-columns: 1fr; }
+  .linear-card-img img { height: 300px; }
+}

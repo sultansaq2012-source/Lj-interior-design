@@ -85,11 +85,20 @@ tabs.forEach((btn) => {
   });
 });
 
+// ---------- Linear project cards (projects.html) ----------
+document.querySelectorAll('.linear-card-toggle').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.linear-card');
+    const open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+});
+
 // ---------- Contact form ----------
 const form = document.getElementById('contactForm');
-const submitBtn = document.getElementById('submitBtn');
-const btnText = submitBtn.querySelector('.btn-text');
-const btnLoading = submitBtn.querySelector('.btn-loading');
+const submitBtn = form ? document.getElementById('submitBtn') : null;
+const btnText = submitBtn && submitBtn.querySelector('.btn-text');
+const btnLoading = submitBtn && submitBtn.querySelector('.btn-loading');
 const formSuccess = document.getElementById('formSuccess');
 const formFail = document.getElementById('formFail');
 
@@ -124,7 +133,7 @@ function validate() {
   return ok;
 }
 
-form.addEventListener('submit', (e) => {
+if (form) form.addEventListener('submit', (e) => {
   e.preventDefault();
   formSuccess.hidden = true;
   formFail.hidden = true;
