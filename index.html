@@ -6,11 +6,11 @@
   <title>LJ Design — Interior Design by Lubna Al Juaid</title>
   <meta name="description" content="LJ Design by Lubna Al Juaid — luxury interior design, fit-out, project management and home styling in Saudi Arabia." />
   <link rel="icon" type="image/png" href="images/lj-logo.png" />
-  <link rel="preload" href="fonts/GreatVibes-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Allura-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-300.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/Cinzel-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="fonts.css?v=3" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="fonts.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
 
@@ -361,6 +361,15 @@
     </div>
   </section>
 
+  <!-- ===== CIRCULAR 3D GALLERY ===== -->
+  <section class="gallery-band" id="gallery">
+    <div class="gallery-head reveal">
+      <span class="script-accent">the collection</span>
+      <p class="gallery-hint">Drag or scroll to explore</p>
+    </div>
+    <div class="circular-gallery" id="circularGallery" role="img" aria-label="Draggable 3D carousel of LJ Design projects"></div>
+  </section>
+
   <!-- ===== CONTACT ===== -->
   <section class="contact section" id="contact">
     <div class="container">
@@ -494,5 +503,6 @@
   </a>
 
   <script src="script.js?v=2"></script>
+  <script type="module" src="gallery.js?v=1"></script>
 </body>
 </html>
